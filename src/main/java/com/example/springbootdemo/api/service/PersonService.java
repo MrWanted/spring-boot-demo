@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface PersonService {
     Person save(Person product);
+    Person update(Person product, Integer id);
     List<Person> findAll();
-    Optional<Person> findByID(Integer id);
+    Person findByID(Integer id) throws Exception;
     void deleteById(Integer id);
 }
