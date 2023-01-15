@@ -15,5 +15,8 @@ public class Person implements Serializable {
     private Integer id;
     private String name;
     private String surname;
-  //  private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_bank_id")
+    private BankingDetails bankingDetails;
 }
