@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/demo-app/rest/api/person")
+@RequestMapping("/rest/api/person")
 @Slf4j
 @Data
 public class PersonController {

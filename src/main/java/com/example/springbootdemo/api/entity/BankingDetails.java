@@ -12,7 +12,7 @@ public class BankingDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "bank_id", nullable = false)
-    private Long id;
+    private Integer id;
     private String accountNumber;
 
     private String bankName;
