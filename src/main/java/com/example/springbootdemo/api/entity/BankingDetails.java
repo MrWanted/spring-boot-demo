@@ -23,5 +23,5 @@ public class BankingDetails implements Serializable {
 
     @OneToOne(mappedBy = "bankingDetails")
     @JsonIgnore
-    private Person person;
+    private Employee employee;
 }
