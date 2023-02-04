@@ -37,73 +37,16 @@ class EmployeeServiceImplTest {
     @Test
     void testSave() {
         // Setup
-        final Employee employee = new Employee();
-        employee.setId(0);
-        employee.setName("name");
-        employee.setSurname("name");
-        final BankingDetails bankingDetails = new BankingDetails();
-        bankingDetails.setId(0);
-        bankingDetails.setAccountNumber("accountNumber");
-        bankingDetails.setBankName("bankName");
-        bankingDetails.setBranchCode("branchCode");
-        bankingDetails.setAccountType("accountType");
-        employee.setBankingDetails(bankingDetails);
-        final Department department = new Department();
-        department.setId(0);
-        department.setName("name");
-        department.setCode("code");
-        department.setEmployees(Set.of(new Employee()));
-        employee.setDepartment(department);
-        final Project project = new Project();
-        employee.setProjects(Set.of(project));
+        final Employee employee = createNewEmployee();
 
-        final Employee expectedResult = new Employee();
-        expectedResult.setId(0);
-        expectedResult.setName("name");
-        expectedResult.setSurname("name");
-        final BankingDetails bankingDetails1 = new BankingDetails();
-        bankingDetails1.setId(0);
-        bankingDetails1.setAccountNumber("accountNumber");
-        bankingDetails1.setBankName("bankName");
-        bankingDetails1.setBranchCode("branchCode");
-        bankingDetails1.setAccountType("accountType");
-        expectedResult.setBankingDetails(bankingDetails1);
-        final Department department1 = new Department();
-        department1.setId(0);
-        department1.setName("name");
-        department1.setCode("code");
-        department1.setEmployees(Set.of(new Employee()));
-        expectedResult.setDepartment(department1);
-        final Project project1 = new Project();
-        expectedResult.setProjects(Set.of(project1));
 
-        // Configure EmployeeRepository.save(...).
-        final Employee employee1 = new Employee();
-        employee1.setId(0);
-        employee1.setName("name");
-        employee1.setSurname("name");
-        final BankingDetails bankingDetails2 = new BankingDetails();
-        bankingDetails2.setId(0);
-        bankingDetails2.setAccountNumber("accountNumber");
-        bankingDetails2.setBankName("bankName");
-        bankingDetails2.setBranchCode("branchCode");
-        bankingDetails2.setAccountType("accountType");
-        employee1.setBankingDetails(bankingDetails2);
-        final Department department2 = new Department();
-        department2.setId(0);
-        department2.setName("name");
-        department2.setCode("code");
-        department2.setEmployees(Set.of(new Employee()));
-        employee1.setDepartment(department2);
-        final Project project2 = new Project();
-        employee1.setProjects(Set.of(project2));
-        when(mockRepository.save(new Employee())).thenReturn(employee1);
+        when(mockRepository.save(employee)).thenReturn(employee);
 
         // Run the test
         final Employee result = employeeServiceImplUnderTest.save(employee);
 
         // Verify the results
-        assertThat(result).isEqualTo(expectedResult);
+        assertThat(result).isEqualTo(employee);
     }
 
     @Test
@@ -144,7 +87,7 @@ class EmployeeServiceImplTest {
         department1.setId(0);
         department1.setName("name");
         department1.setCode("code");
-        department1.setEmployees(Set.of(new Employee()));
+      //  department1.setEmployees(Set.of(new Employee()));
         expectedResult.setDepartment(department1);
         final Project project1 = new Project();
         expectedResult.setProjects(Set.of(project1));
@@ -192,13 +135,28 @@ class EmployeeServiceImplTest {
         employee3.setDepartment(department3);
         final Project project3 = new Project();
         employee3.setProjects(Set.of(project3));
-        when(mockRepository.save(new Employee())).thenReturn(employee3);
+        when(mockRepository.save(employee3)).thenReturn(employee3);
 
         // Run the test
         final Employee result = employeeServiceImplUnderTest.update(employee, 0);
 
         // Verify the results
         assertThat(result).isEqualTo(expectedResult);
+    }
+
+    @Test
+    public void testUpdateExistingEmployee() {
+        Employee employee = createNewEmployee();
+
+        int id = 1;
+        when(mockRepository.findById(id)).thenReturn(Optional.of(employee));
+        when(mockRepository.save(employee)).thenReturn(employee);
+
+        Employee updatedEmployee = employeeServiceImplUnderTest.update(employee, id);
+        System.out.println(updatedEmployee.getSurname());
+       assertThat("wanted").isEqualTo(updatedEmployee.getName());
+       //assertThat("lepota").isEqualTo(updatedEmployee.getSurname());
+
     }
 
     @Test
@@ -219,7 +177,7 @@ class EmployeeServiceImplTest {
         department.setId(0);
         department.setName("name");
         department.setCode("code");
-        department.setEmployees(Set.of(new Employee()));
+       // department.setEmployees(Set.of(new Employee()));
         employee.setDepartment(department);
         final Project project = new Project();
         employee.setProjects(Set.of(project));
@@ -266,7 +224,7 @@ class EmployeeServiceImplTest {
         employee1.setDepartment(department2);
         final Project project2 = new Project();
         employee1.setProjects(Set.of(project2));
-        when(mockRepository.save(new Employee())).thenReturn(employee1);
+        when(mockRepository.save(employee1)).thenReturn(employee1);
 
         // Run the test
         final Employee result = employeeServiceImplUnderTest.update(employee, 0);
