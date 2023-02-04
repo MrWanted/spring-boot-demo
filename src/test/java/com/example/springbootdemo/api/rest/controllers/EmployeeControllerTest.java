@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -87,6 +88,7 @@ class EmployeeControllerTest {
     }
 
     @Test
+    @WithMockUser(username="admin")
     void testSave() throws Exception {
         // Setup
         // Configure EmployeeService.save(...).
@@ -109,7 +111,7 @@ class EmployeeControllerTest {
         employee.setDepartment(department);
         final Project project = new Project();
         employee.setProjects(Set.of(project));
-        when(mockService.save(new Employee())).thenReturn(employee);
+        when(mockService.save(employee)).thenReturn(employee);
 
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/rest/api/employee/path")
