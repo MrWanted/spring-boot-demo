@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/api/person")
+@RequestMapping("/rest/api/employee")
 @Slf4j
 @Data
 public class EmployeeController {
