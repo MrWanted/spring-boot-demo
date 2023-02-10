@@ -1,7 +1,7 @@
 package com.example.springbootdemo.api.entity;
 
 import jakarta.persistence.*;
-aimport jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
