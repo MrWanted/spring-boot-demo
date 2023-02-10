@@ -1,6 +1,7 @@
 package com.example.springbootdemo.api.entity;
 
 import jakarta.persistence.*;
+aimport jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,9 @@ public class Employee implements Serializable {
     private Integer id;
     private String name;
     private String surname;
+
+    @Email
+    private String email;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_bank_id")
     private BankingDetails bankingDetails;
