@@ -3,6 +3,7 @@ package com.example.springbootdemo.api.rest.controllers;
 import com.example.springbootdemo.api.entity.BankingDetails;
 import com.example.springbootdemo.api.entity.Department;
 import com.example.springbootdemo.api.entity.Project;
+import com.example.springbootdemo.api.entity.Employee;
 import com.example.springbootdemo.api.service.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
