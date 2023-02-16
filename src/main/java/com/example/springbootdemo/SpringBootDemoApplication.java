@@ -17,8 +17,4 @@ public class SpringBootDemoApplication {
 	public String pong(){
 		return "pong";
 	}
-	@RequestMapping("/")
-	public String home() {
-		return "Welcome to Afrika";
-	}
 }
