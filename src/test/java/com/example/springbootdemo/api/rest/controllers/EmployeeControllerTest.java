@@ -2,7 +2,6 @@ package com.example.springbootdemo.api.rest.controllers;
 
 import com.example.springbootdemo.api.entity.BankingDetails;
 import com.example.springbootdemo.api.entity.Department;
-import com.example.springbootdemo.api.entity.Employee;
 import com.example.springbootdemo.api.entity.Project;
 import com.example.springbootdemo.api.service.EmployeeService;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-@ExtendWith(SpringExtension.class)
+@ExtendWith(SpringExtension.class)// annotation to tell JUnit 5 to enable Spring support
 @WebMvcTest(EmployeeController.class)
 class EmployeeControllerTest {
 
@@ -165,28 +164,28 @@ class EmployeeControllerTest {
         // Setup
         // Configure EmployeeService.findByID(...).
         final Employee employee = new Employee();
-        employee.setId(0);
+        employee.setId(1);
         employee.setName("name");
         employee.setSurname("surname");
         final BankingDetails bankingDetails = new BankingDetails();
-        bankingDetails.setId(0);
+        bankingDetails.setId(1);
         bankingDetails.setAccountNumber("accountNumber");
         bankingDetails.setBankName("bankName");
         bankingDetails.setBranchCode("branchCode");
         bankingDetails.setAccountType("accountType");
         employee.setBankingDetails(bankingDetails);
         final Department department = new Department();
-        department.setId(0);
+        department.setId(1);
         department.setName("name");
         department.setCode("code");
         department.setEmployees(Set.of(new Employee()));
         employee.setDepartment(department);
         final Project project = new Project();
         employee.setProjects(Set.of(project));
-        when(mockService.findByID(0)).thenReturn(employee);
+        when(mockService.findByID(1)).thenReturn(employee);
 
         // Run the test
-        final MockHttpServletResponse response = mockMvc.perform(get("/rest/api/employee/{id}", 0)
+        final MockHttpServletResponse response = mockMvc.perform(get("/rest/api/employee/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
