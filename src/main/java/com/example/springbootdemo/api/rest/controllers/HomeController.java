@@ -13,6 +13,6 @@ public class HomeController {
     }
     @PostMapping(value = "/data", consumes = { MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<String> handleData(@RequestBody MyData data) {
-        return ResponseEntity.ok("json Data processed successfully");
+        return ResponseEntity.ok("Data processed successfully");
     }
 }
