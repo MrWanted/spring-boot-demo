@@ -2,6 +2,7 @@ package com.example.springbootdemo.api.rest.controllers;
 
 import com.example.springbootdemo.api.entity.Department;
 import com.example.springbootdemo.api.service.DepartmentService;
+import jdk.jfr.Label;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/rest/api/department")
 @Slf4j
 @Data
+@Label("Department")
 public class DepartmentController {
     private final DepartmentService service;
 
