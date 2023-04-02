@@ -2,8 +2,14 @@ package com.example.springbootdemo.api.rest.controllers;
 
 import com.example.springbootdemo.api.entity.Employee;
 import com.example.springbootdemo.api.service.EmployeeService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,10 +26,14 @@ import java.util.List;
 @Slf4j
 @Data
 @Tag(name = "Employee operations", description = "manage emloyees")
+@OpenAPIDefinition(info = @Info(title = "Springboot demo project", version = "1.0",
+        contact = @Contact(name = "Spring boot API documentation", email = "support@demoAPI.com")
+))
 public class EmployeeController {
     private final EmployeeService service;
 
-    @Operation(summary = "find all employees")
+    @Operation(summary = "find all employees",
+               description = "description goes here")
     @GetMapping("")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Server error"),
@@ -55,6 +65,9 @@ public class EmployeeController {
                     schema = @Schema(implementation = Employee.class)),
             }
             ) })
+    @Parameters({
+            @Parameter(name = "id", description = "ID", example = "1")
+    })
     @PutMapping("/{id}")
     public Employee update(@RequestBody Employee person, @PathVariable Integer id) {
         log.info("updating person details...");
@@ -78,7 +91,17 @@ public class EmployeeController {
     @Operation(summary = "delete the investor from the system", operationId = "isAlive")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = "Server error"),
-            @ApiResponse(responseCode = "404", description = "Employee not found, therefore could not be deleted"),
+            @ApiResponse(responseCode = "404",
+                    description = "Invalid employee id",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Exception.class),
+                                    examples = {
+                                            @ExampleObject(value = "{"
+                                                    + "\"code\": \"ERR002\", "
+                                                    + "\"message\": \"Unknown employee\"}")
+                                    })
+                    }),
             @ApiResponse(responseCode = "200", description = "Successful deletion", content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = Employee.class)),
             }

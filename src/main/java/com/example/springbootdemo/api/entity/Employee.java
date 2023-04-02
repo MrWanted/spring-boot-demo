@@ -1,5 +1,6 @@
 package com.example.springbootdemo.api.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -19,11 +20,15 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
+    @Schema(example = "2")
     private Integer id;
+    @Schema(example = "Lerato")
     private String name;
+    @Schema(example = "Lepota")
     private String surname;
 
     @Email
+    @Schema(example = "lerato@lepota.co.za")
     private String email;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_bank_id")
