@@ -74,10 +74,35 @@ public class EmployeeController {
         return service.update(person, id);
     }
 
-    @Operation(summary = "delete the investor details from the system", operationId = "isAlive")
+    @Operation(summary = "retrieves employee details", operationId = "isAlive",
+            description = "This API searches for an employee with unique Id, "
+                    + "Once the employee is found, will return a response with employee details such as  "
+                    + "name, surname , banking details etc."
+                    + "If the employee is not found, appropriate error message will be returned.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "500", description = "Server error"),
-            @ApiResponse(responseCode = "404", description = "Employee not found"),
+            @ApiResponse(responseCode = "500",
+                    description = "generic server error",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Exception.class),
+                                    examples = {
+                                            @ExampleObject(value = "{"
+                                                    + "\"code\": \"500\", "
+                                                    + "\"message\": \"internal server error\"}")
+                                    })
+                    }),
+            @ApiResponse(responseCode = "404",
+                    description = "Invalid employee id",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = Exception.class),
+                                    examples = {
+                                            @ExampleObject(value = "{"
+                                                    + "\"title\": \"not found\", "
+                                                    + "\"status\": 404, "
+                                                    + "\"instance\": \"/rest/api/employee/111\", "
+                                                    + "\"postId\": \"111\"}")})
+                    }),
             @ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = Employee.class)),
             }
