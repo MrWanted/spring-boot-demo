@@ -1,7 +1,7 @@
 package com.example.springbootdemo.api.serviceImpl;
 
 import com.example.springbootdemo.api.entity.Department;
-import com.example.springbootdemo.api.exception.PersonNotFoundExeption;
+import com.example.springbootdemo.api.exception.ResourceNotFoundException;
 import com.example.springbootdemo.api.repository.DepartmentRepository;
 import com.example.springbootdemo.api.service.DepartmentService;
 import lombok.Data;
@@ -40,7 +40,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department findByID(Integer id) {
-        return repository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Department not found!"));
+        return repository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Department not found with id:" + id));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (department.getId() == id) {
             repository.deleteById(id);
         } else {
-            throw new PersonNotFoundExeption(id);
+            throw new ResourceNotFoundException("Department not found with id:" + id);
         }
     }
 }
