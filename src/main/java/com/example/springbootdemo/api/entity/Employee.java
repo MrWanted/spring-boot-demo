@@ -25,10 +25,10 @@ public class Employee implements Serializable {
     private Integer id;
 
     @Schema(example = "Lerato")
-    @NotNull
+    @NotNull(message = "name should be provided")
     private String name;
     @Schema(example = "Lepota")
-    @NotNull
+    @NotNull(message = "surname should be provided")
     private String surname;
 
     @Email
