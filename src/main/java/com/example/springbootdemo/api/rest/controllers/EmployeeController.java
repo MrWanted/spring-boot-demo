@@ -55,8 +55,13 @@ public class EmployeeController {
             ) })
     @PostMapping("")
     public ResponseEntity save(@RequestBody  @Valid Employee person) {
-        log.info("Saving employee details...");
-        return new ResponseEntity<>(service.save(person), HttpStatus.OK);
+        try {
+            log.info("Saving employee details...");
+            return new ResponseEntity<>(service.save(person), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("Error saving employee details: {}", e.getMessage());
+            return new ResponseEntity<>("Error saving employee details", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Operation(summary = "update the employee details, if not found new employee will be created", operationId = "isAlive")
@@ -70,7 +75,7 @@ public class EmployeeController {
             @Parameter(name = "id", description = "ID", example = "1")
     })
     @PutMapping("/{id}")
-    public Employee update(@RequestBody Employee person, @PathVariable Integer id) {
+    public Employee update(@RequestBody @Valid Employee person, @PathVariable Integer id) {
         log.info("updating person details...");
         return service.update(person, id);
     }
