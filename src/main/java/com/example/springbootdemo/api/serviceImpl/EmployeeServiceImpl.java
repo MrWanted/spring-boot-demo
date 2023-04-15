@@ -1,7 +1,7 @@
 package com.example.springbootdemo.api.serviceImpl;
 
 import com.example.springbootdemo.api.entity.Employee;
-import com.example.springbootdemo.api.exception.PersonNotFoundExeption;
+import com.example.springbootdemo.api.exception.ResourceNotFoundException;
 import com.example.springbootdemo.api.repository.EmployeeRepository;
 import com.example.springbootdemo.api.service.EmployeeService;
 import lombok.Data;
@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findByID(Integer id) {
-        return repository.findById(id).orElseThrow(() -> new PersonNotFoundExeption(id));
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id:" + id));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (person.getId() == id) {
             repository.deleteById(id);
         } else {
-            throw new PersonNotFoundExeption(id);
+            throw new ResourceNotFoundException("Employee not found with id:" + id);
         }
     }
 }
