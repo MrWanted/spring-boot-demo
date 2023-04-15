@@ -1,7 +1,7 @@
 package com.example.springbootdemo.api.serviceImpl;
 
 import com.example.springbootdemo.api.entity.Project;
-import com.example.springbootdemo.api.exception.PersonNotFoundExeption;
+import com.example.springbootdemo.api.exception.ResourceNotFoundException;
 import com.example.springbootdemo.api.repository.ProjectRepository;
 import com.example.springbootdemo.api.service.ProjectService;
 import lombok.Data;
@@ -47,7 +47,7 @@ public class ProjectServiceImpl implements ProjectService {
         if (project.getId() == id) {
             repository.deleteById(id);
         } else {
-            throw new PersonNotFoundExeption(id);
+            throw new ResourceNotFoundException("resource not found with id: " + id);
         }
     }
 }
