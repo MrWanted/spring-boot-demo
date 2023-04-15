@@ -3,6 +3,7 @@ package com.example.springbootdemo.api.entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,9 +23,12 @@ public class Employee implements Serializable {
     @Column(name = "id", nullable = false, unique = true)
     @Schema(example = "2")
     private Integer id;
+
     @Schema(example = "Lerato")
+    @NotNull
     private String name;
     @Schema(example = "Lepota")
+    @NotNull
     private String surname;
 
     @Email
