@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -53,7 +54,7 @@ public class EmployeeController {
             }
             ) })
     @PostMapping("")
-    public ResponseEntity save(@RequestBody Employee person) {
+    public ResponseEntity save(@RequestBody  @Valid Employee person) {
         log.info("Saving employee details...");
         return new ResponseEntity<>(service.save(person), HttpStatus.OK);
     }
@@ -88,7 +89,7 @@ public class EmployeeController {
                                     examples = {
                                             @ExampleObject(value = "{"
                                                     + "\"code\": \"500\", "
-                                                    + "\"message\": \"internal server error\"}")
+                                                    + "\"message\": \"Internal server error\"}")
                                     })
                     }),
             @ApiResponse(responseCode = "404",
