@@ -27,11 +27,10 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ProblemDetail handleAllUncaughtException(Exception exception, WebRequest request) throws URISyntaxException {
-        log.error("An error occurred", exception);
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());
-        problemDetail.setProperty("postId", exception.getMessage());
-        //URL below hardcoded for illustration purposes
-        problemDetail.setType(new URI("http://localhost:8080/rest/api/investor/problems/person-not-found"));
+        log.error("An error occurred: ", exception);
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, "an error has occurred");
+
+        problemDetail.setType(new URI("http://localhost:8080/rest/api/investor/problems/resource-not-found"));
 
         return problemDetail;
     }
