@@ -4,7 +4,7 @@ import com.example.springbootdemo.api.entity.BankingDetails;
 import com.example.springbootdemo.api.entity.Department;
 import com.example.springbootdemo.api.entity.Employee;
 import com.example.springbootdemo.api.entity.Project;
-import com.example.springbootdemo.api.exception.PersonNotFoundExeption;
+import com.example.springbootdemo.api.exception.ResourceNotFoundException;
 import com.example.springbootdemo.api.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -363,7 +363,7 @@ class EmployeeServiceImplTest {
         when(mockRepository.findById(0)).thenReturn(Optional.empty());
 
         // Run the test
-        assertThatThrownBy(() -> employeeServiceImplUnderTest.findByID(0)).isInstanceOf(PersonNotFoundExeption.class);
+        assertThatThrownBy(() -> employeeServiceImplUnderTest.findByID(0)).isInstanceOf(ResourceNotFoundException.class);
     }
 
     @Test
@@ -385,6 +385,6 @@ class EmployeeServiceImplTest {
         when(mockRepository.findById(0)).thenReturn(Optional.empty());
 
         // Run the test
-        assertThatThrownBy(() -> employeeServiceImplUnderTest.deleteById(0)).isInstanceOf(PersonNotFoundExeption.class);
+        assertThatThrownBy(() -> employeeServiceImplUnderTest.deleteById(0)).isInstanceOf(ResourceNotFoundException.class);
     }
 }
