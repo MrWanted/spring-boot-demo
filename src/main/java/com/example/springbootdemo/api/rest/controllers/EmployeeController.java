@@ -26,10 +26,7 @@ import java.util.List;
 @RequestMapping("/rest/api/employee")
 @Slf4j
 @Data
-@Tag(name = "Employee operations", description = "manage emloyees")
-@OpenAPIDefinition(info = @Info(title = "Springboot demo project", version = "1.0",
-        contact = @Contact(name = "Spring boot API documentation", email = "support@demoAPI.com")
-))
+@Tag(name = "Employee operations", description = "manage employees")
 public class EmployeeController {
     private final EmployeeService service;
 
@@ -47,12 +44,6 @@ public class EmployeeController {
     }
 
     @Operation(summary = "save the employee details", operationId = "isAlive")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "500", description = "Server error"),
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Employee.class)),
-            }
-            ) })
     @PostMapping("")
     public ResponseEntity save(@RequestBody  @Valid Employee person) {
         try {
@@ -85,34 +76,7 @@ public class EmployeeController {
                     + "Once the employee is found, will return a response with employee details such as  "
                     + "name, surname , banking details etc."
                     + "If the employee is not found, appropriate error message will be returned.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "500",
-                    description = "generic server error",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Exception.class),
-                                    examples = {
-                                            @ExampleObject(value = "{"
-                                                    + "\"code\": \"500\", "
-                                                    + "\"message\": \"Internal server error\"}")
-                                    })
-                    }),
-            @ApiResponse(responseCode = "404",
-                    description = "Invalid employee id",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Exception.class),
-                                    examples = {
-                                            @ExampleObject(value = "{"
-                                                    + "\"title\": \"not found\", "
-                                                    + "\"status\": 404, "
-                                                    + "\"instance\": \"/rest/api/employee/111\", "
-                                                    + "\"postId\": \"111\"}")})
-                    }),
-            @ApiResponse(responseCode = "200", description = "Successful operation", content = {@Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Employee.class)),
-            }
-            ) })
+
     @GetMapping("/{id}")
     public ResponseEntity<Employee> findById(@PathVariable Integer id) throws Exception {
         log.info("find employee details by id ...", id);
@@ -120,23 +84,6 @@ public class EmployeeController {
     }
 
     @Operation(summary = "delete the investor from the system", operationId = "isAlive")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "500", description = "Server error"),
-            @ApiResponse(responseCode = "404",
-                    description = "Invalid employee id",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Exception.class),
-                                    examples = {
-                                            @ExampleObject(value = "{"
-                                                    + "\"code\": \"ERR002\", "
-                                                    + "\"message\": \"Unknown employee\"}")
-                                    })
-                    }),
-            @ApiResponse(responseCode = "200", description = "Successful deletion", content = {@Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Employee.class)),
-            }
-            ) })
     @DeleteMapping("/{id}")
     public void deletePersonByID(@PathVariable("id") int id) throws Exception {
         log.info("deleting a person by id ...", id);

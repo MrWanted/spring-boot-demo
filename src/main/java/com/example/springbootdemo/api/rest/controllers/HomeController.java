@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class HomeController {
     @RequestMapping("/")
-    public @ResponseBody String greeting() {
-        return "Hello, Afrika";
+    public @ResponseBody String greeting() throws Exception {
+         throw new Exception("test exception");
     }
     @PostMapping(value = "/data", consumes = { MediaType.APPLICATION_XML_VALUE , MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<String> handleData(@RequestBody MyData data) {
